@@ -1,0 +1,5 @@
+XTerm*faceName: xft:monospace:pixelsize=21
+
+urxvt*font: xft:monospace:pixelsize=21
+urxvt*scrollBar: False
+urxvt*depth: 32
