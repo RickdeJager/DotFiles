@@ -18,7 +18,8 @@ autocmd FileType tex map <C-4> i"$$"<Left>
 autocmd FileType tex imap <C-4> "$$"<Left>
 
 "Python specific
-autocmd FileType python map <F5> <esc>:w<bar>:!clear;python %<CR>
+autocmd FileType python map <F5> <esc>:w<bar>:!clear;python3 %<CR>
+autocmd FileType python map <C-c> <esc>0I#<esc>
 
 
 "Line numbers
