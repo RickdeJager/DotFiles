@@ -29,3 +29,9 @@ autocmd FileType python map <C-c> <esc>0I#<esc>
 "spell check
 :map <F7> <esc>:set spell! spelllang=en_us<CR>
 :imap <F7> <esc>:set spell! spelllang=en_us<CR>i
+
+"Allows me to be lazy
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q

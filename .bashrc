@@ -122,8 +122,10 @@ alias rec='sleep 1 && ffmpeg -f x11grab -r 25 -s 1920x1080 -i :0.0+0.0 -vcodec l
 alias phantomjs='~/scripts_and_tools/phantomjs/bin/phantomjs'
 alias pg='ping google.com'
 alias pd='ping 8.8.8.8'
+alias sizes='du -sch .[!.]* * |sort -h'
+alias v='vim'
+alias vl='vim --servername vim'
 #PyWal
 (cat ~/.cache/wal/sequences)
 #Custom PS1
-#export PS1="\u~\$: [\w]> " 
 export PS1="\[\033[38;5;4m\][\[$(tput sgr0)\]\[\033[38;5;1m\]\w\[$(tput sgr0)\]\[\033[38;5;4m\]]\[$(tput sgr0)\]\[\033[38;5;10m\]~\\$\[$(tput sgr0)\] "

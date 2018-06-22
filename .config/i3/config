@@ -1,7 +1,12 @@
+set $mod Mod4
+set $primaryMonitor DP-0 
+set $secondMonitor eDP-1-1
+ # Above variables are auto-generated!
 # i3 config file
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+#set $primaryMonitor eDP-1-1
+#set $secondMonitor DP-0
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -72,6 +77,8 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+#toggle sticky
+bindsym $mod+space+s sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -109,27 +116,24 @@ bindsym $mod+Shift+bracketright move container to workspace 12
 
 #Bind Workspaces
 
-set $laptopMonitor eDP-1-1
-set $secondMonitor DP-0
-
-workspace 1 output $laptopMonitor
-workspace 2 output $laptopMonitor
-workspace 3 output $laptopMonitor
-workspace 4 output $laptopMonitor
-workspace 5 output $laptopMonitor
-workspace 6 output $laptopMonitor
-workspace 7 output $laptopMonitor
-workspace 8 output $laptopMonitor
-workspace 9 output $laptopMonitor
-workspace 10 output $laptopMonitor
+workspace 1 output $primaryMonitor
+workspace 2 output $primaryMonitor
+workspace 3 output $primaryMonitor
+workspace 4 output $primaryMonitor
+workspace 5 output $primaryMonitor
+workspace 6 output $primaryMonitor
+workspace 7 output $primaryMonitor
+workspace 8 output $primaryMonitor
+workspace 9 output $primaryMonitor
+workspace 10 output $primaryMonitor
 
 workspace 11 output $secondMonitor
 workspace 12 output $secondMonitor
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c exec "bash ~/DotFiles/.config/buildConfigs.sh && i3-msg reload"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec "bash ~/DotFiles/.config/buildConfigs.sh && i3-msg restart"
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -175,7 +179,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 
 #WallPaper via PyWal
-exec_always --no-startup-id ~/.WallPapers/setRandom.sh
+exec --no-startup-id ~/.WallPapers/setRandom.sh
 bindsym $mod+shift+slash exec ~/.WallPapers/setRandom.sh
 
 #PyWal color settings
@@ -209,9 +213,18 @@ bindsym $mod+m exec amixer -q -D pulse sset Master toggle
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+
+#Spotify workspace
+set $wsSpot "99:Spotify"
+bindsym $mod+End workspace $wsSpot
+workspace $wsSpot output $secondMonitor
+for_window [class="Spotify"] move to workspace $wsSpot
+#Spotify control
+bindsym $mod+Home exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym $mod+Next exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym $mod+Prior exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 # Lock screens and suspending
 bindsym $mod+shift+F1 exec ~/.i3lock/lock.sh && systemctl suspend
-bindsym $mod+l exec ~/.i3lock/lock.sh 
+bindsym $mod+l exec ~/.i3lock/barlock.sh 
 #dumb lock screen joke
 bindsym $mod+shift+a exec ~/.i3lock/matrixlock.sh
 #Programs
@@ -220,7 +233,8 @@ bindsym $mod+shift+f exec firefox
 bindsym $mod+shift+t exec Thunar
 bindsym $mod+c exec gnome-calculator
 #AutoStarts
-exec --no-startup-id i3-msg 'workspace 10; exec spotify'
-for_window [class="Spotify"] move to workspace 10, workspace --no-auto-back-and-forth 10
-exec --no-startup-id i3-msg 'workspace 7; exec thunderbird'
-exec --no-startup-id i3-msg 'workspace 3; exec discord'
+exec --no-startup-id exec spotify
+exec --no-startup-id exec thunderbird
+for_window [class="Thunderbird"] move to workspace 7
+exec --no-startup-id discord
+for_window [class="discord"] move to workspace 3

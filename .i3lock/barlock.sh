@@ -5,6 +5,7 @@ LOCK=~/.i3lock/bar.png
 RES=`xdpyinfo | grep -i dimensions: | sed 's/[^0-9]*pixels.*(.*).*//' | sed 's/[^0-9x]*//'`
 FONT="Ubuntu"
 LOCKFONTSIZE=150
+CLOCKFONTSIZE=80
 
 
 OFFSET=0
@@ -34,9 +35,11 @@ ffmpeg -f x11grab -video_size $RES -y -i $DISPLAY -i $TMPLK -filter_complex "eq=
 
 HL=$TCOLOR"ff"
 NOR=$TCOLOR"7f"
+TIMEYPOS=(1080)/2
 i3lock 	--clock \
 	--timestr="%H:%M" \
-	--timepos 270:h/2 \
+	--timepos 270:$TIMEYPOS \
+	--timesize $CLOCKFONTSIZE \
 	--timecolor=$HL \
 	--datepos 720:h/2-25+$LOCKFONTSIZE/2 \
 	--datecolor=$HL \
