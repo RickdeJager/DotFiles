@@ -1,6 +1,9 @@
 call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/lervag/vimtex.git' 
+Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'https://github.com/vim-airline/vim-airline-themes'
 call plug#end()
+let g:airline_powerline_fonts = 1
 
 "VimTeX vars
 let g:vimtex_view_method = 'zathura'

@@ -75,7 +75,7 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 #toggle sticky
-bindsym $mod+space+s sticky toggle
+bindsym $mod+Shift+u sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -128,9 +128,9 @@ workspace 11 output $secondMonitor
 workspace 12 output $secondMonitor
 
 # reload the configuration file
-bindsym $mod+Shift+c exec "bash ~/DotFiles/.config/buildConfigs.sh && i3-msg reload"
+bindsym $mod+Shift+c exec "bash ~/DotFiles/.config/buildConfigs.sh && i3-msg reload && wal -R"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r exec "bash ~/DotFiles/.config/buildConfigs.sh && i3-msg restart"
+bindsym $mod+Shift+r exec "bash ~/DotFiles/.config/buildConfigs.sh && i3-msg restart && wal -R"
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -176,8 +176,9 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 
 #WallPaper via PyWal
-exec --no-startup-id ~/.WallPapers/setRandom.sh
-bindsym $mod+shift+slash exec ~/.WallPapers/setRandom.sh
+exec --no-startup-id ~/DotFiles/.WallPapers/setRandom.sh
+#I disabled pyWal reloading poly, since it doesn't make sense to reload it without the new colors in place (for which we need to wait for pywal to finish)
+bindsym $mod+shift+slash exec "bash ~/DotFiles/.WallPapers/setRandom.sh && sleep 0.5 && ~/DotFiles/.config/setPolyVars.sh $primaryMonitor && ~/DotFiles/.config/polybar/launch.sh"
 
 #PyWal color settings
 set_from_resource $bg          	i3wm.color3 #ff0000
@@ -207,9 +208,13 @@ default_border pixel 3
 
 #Volume control
 bindsym $mod+m exec amixer -q -D pulse sset Master toggle
+#Bind actual buttons
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+
+#Allows both mod and fn to work for laptop volume buttons
+bindsym $mod+F8 exec amixer -q -D pulse sset Master 5%-
+bindsym $mod+F9 exec amixer -q -D pulse sset Master 5%+
 #Spotify workspace
 set $wsSpot "99:Spotify"
 bindsym $mod+End workspace $wsSpot
@@ -235,3 +240,19 @@ exec --no-startup-id exec thunderbird
 for_window [class="Thunderbird"] move to workspace 7
 exec --no-startup-id discord
 for_window [class="discord"] move to workspace 3
+
+
+#Move workspace outputs around in case monitors got hotplugged
+#exec_always "i3-msg workspace 1, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 2, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 3, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 4, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 5, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 6, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 7, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 8, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 9, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 10, move workspace to output $primaryMonitor"
+#exec_always "i3-msg workspace 11, move workspace to output $secondMonitor"
+#exec_always "i3-msg workspace 12, move workspace to output $secondMonitor"
+#exec_always "i3-msg workspace 99:Spotify, move workspace to output $secondMonitor"
