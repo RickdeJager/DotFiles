@@ -1,6 +1,6 @@
 set $mod Mod4
-set $primaryMonitor eDP-1-1 
-set $secondMonitor DP-0
+set $primaryMonitor DP-0 
+set $secondMonitor eDP-1-1
  # Above variables are auto-generated!
 # i3 config file
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -246,6 +246,9 @@ for_window [class="discord"] move to workspace 3
 
 
 #Move workspace outputs around in case monitors got hotplugged
+bindsym $mod+shift+m exec "i3-msg workspace 1, move workspace to output $primaryMonitor;i3-msg workspace 2, move workspace to output $primaryMonitor;i3-msg workspace 3, move workspace to output $primaryMonitor;i3-msg workspace 4, move workspace to output $primaryMonitor;i3-msg workspace 5, move workspace to output $primaryMonitor;i3-msg workspace 6, move workspace to output $primaryMonitor;i3-msg workspace 7, move workspace to output $primaryMonitor;i3-msg workspace 8, move workspace to output $primaryMonitor;i3-msg workspace 9, move workspace to output $primaryMonitor;i3-msg workspace 10, move workspace to output $primaryMonitor;i3-msg workspace 11, move workspace to output $secondMonitor;i3-msg workspace 12, move workspace to output $secondMonitor;i3-msg workspace 99:Spotify, move workspace to output $secondMonitor"
+
+#Readable version of the above command
 #exec_always "i3-msg workspace 1, move workspace to output $primaryMonitor"
 #exec_always "i3-msg workspace 2, move workspace to output $primaryMonitor"
 #exec_always "i3-msg workspace 3, move workspace to output $primaryMonitor"

@@ -178,7 +178,7 @@ exec --no-startup-id blueman-applet
 #WallPaper via PyWal
 exec --no-startup-id ~/DotFiles/.WallPapers/setRandom.sh
 #I disabled pyWal reloading poly, since it doesn't make sense to reload it without the new colors in place (for which we need to wait for pywal to finish)
-bindsym $mod+shift+slash exec "bash ~/DotFiles/.WallPapers/setRandom.sh && sleep 0.5 && ~/DotFiles/.config/setPolyVars.sh $primaryMonitor && ~/DotFiles/.config/polybar/launch.sh"
+bindsym $mod+shift+slash exec "bash ~/DotFiles/.config/setRandomWall.sh"
 
 #PyWal color settings
 set_from_resource $bg          	i3wm.color3 #ff0000
@@ -243,6 +243,9 @@ for_window [class="discord"] move to workspace 3
 
 
 #Move workspace outputs around in case monitors got hotplugged
+bindsym $mod+shift+m exec "i3-msg workspace 1, move workspace to output $primaryMonitor;i3-msg workspace 2, move workspace to output $primaryMonitor;i3-msg workspace 3, move workspace to output $primaryMonitor;i3-msg workspace 4, move workspace to output $primaryMonitor;i3-msg workspace 5, move workspace to output $primaryMonitor;i3-msg workspace 6, move workspace to output $primaryMonitor;i3-msg workspace 7, move workspace to output $primaryMonitor;i3-msg workspace 8, move workspace to output $primaryMonitor;i3-msg workspace 9, move workspace to output $primaryMonitor;i3-msg workspace 10, move workspace to output $primaryMonitor;i3-msg workspace 11, move workspace to output $secondMonitor;i3-msg workspace 12, move workspace to output $secondMonitor;i3-msg workspace 99:Spotify, move workspace to output $secondMonitor"
+
+#Readable version of the above command
 #exec_always "i3-msg workspace 1, move workspace to output $primaryMonitor"
 #exec_always "i3-msg workspace 2, move workspace to output $primaryMonitor"
 #exec_always "i3-msg workspace 3, move workspace to output $primaryMonitor"
